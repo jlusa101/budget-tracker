@@ -1,5 +1,6 @@
 let transactions = [];
 let myChart;
+var flag = true;
 
 fetch("/api/transaction")
   .then(response => {
@@ -102,15 +103,11 @@ function sendTransaction(isAdding) {
   // if subtracting funds, convert amount to negative number
   if (!isAdding) {
     transaction.value *= -1;
+    flag = false;
   }
 
   // add to beginning of current array of data
   transactions.unshift(transaction);
-
-  // re-run logic to populate ui with new record
-  populateChart();
-  populateTable();
-  populateTotal();
   
   // also send to server
   fetch("/api/transaction", {
@@ -132,11 +129,22 @@ function sendTransaction(isAdding) {
       // clear form
       nameEl.value = "";
       amountEl.value = "";
+
+      // re-run logic to populate ui with new record
+      populateChart();
+      populateTable();
+      populateTotal();    
     }
   })
   .catch(err => {
     // fetch failed, so save in indexed db
     saveRecord(transaction);
+    // Alert message depending on if the entry was an expense or a deposit
+    if(flag === true){
+      alert('Budget Tracker has been updated with a deposit!');
+    } else {
+      alert('Budget Tracker has been updated with an expense!');
+    }
 
     // clear form
     nameEl.value = "";
