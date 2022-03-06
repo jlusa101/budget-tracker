@@ -41,7 +41,7 @@
         "type": "image/png"
       }
     ],
-    "name": "Budget Tracket",
+    "name": "Budget Tracker",
     "short_name": "Budget",
     "display": "standalone",
     "start_url": "./index.html",
