@@ -45,6 +45,8 @@
   <script src="./js/index.js"></script>
   <!-- Utilizing IndexedDB for offline functionality -->
   <script src="./js/idb.js"></script>
+   <!-- Checking to see if serviceWorker exists in the global navigator (browser) object -->
+   <!-- Navigator contains a property that determines whether the browser supports service workers -->
   <script>
     (function() {
       if("serviceWorker" in navigator) {
